@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //json 타입으로 된것을 분석해서 가져온다.
 app.use(bodyParser.json());
 app.use(express.json({ extended: true }));
-
 //express에서 제공되는 모듈 -> app.
 app.use(cookieParser());
 
