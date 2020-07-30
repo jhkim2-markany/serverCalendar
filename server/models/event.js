@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 // const Schema = mongoose.Schema;
 
+//start랑 end number일수도 있음
 const eventSchema = mongoose.Schema({
   title: { 
     type: String, 
     required: true 
   },
   start: { 
-    type: Number, 
+    type: String, 
     required: true 
   },
   end:   { 
-    type: Number, 
+    type: String, 
     required: true 
   },
   desc:  { 
