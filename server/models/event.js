@@ -5,35 +5,26 @@ const mongoose = require('mongoose');
 const eventSchema = mongoose.Schema({
   title: { 
     type: String, 
-    required: true 
+    required: true,
+    // unique: true
   },
   start: { 
-    type: String, 
+    type: Date, 
     required: true 
   },
   end:   { 
-    type: String, 
+    type: Date, 
     required: true 
   },
   desc:  { 
     type: String
   },
-  role: { //관리자를 만들기 위해서 default를 0이면 일반임
-    type: Number,
-    default : 0
-  },
-  token: {
-    type: String
-  },
-  tokenExp: {
-    type: Number
-  }
-
 });
+            //아틀라스나 db 들거가는 모델이름 아틀라스 들어가면 
+            //복수형이라서 calendars라는 스키마가 새로 생김
+const Event = mongoose.model('calendar', eventSchema)
 
-const event = mongoose.model('event', eventSchema)
-
-module.exports = { event }
+module.exports = { Event }
 
 
 /*
