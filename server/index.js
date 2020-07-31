@@ -43,6 +43,7 @@ app.get('/', (req, res)=>{ // '/' 위치에 'get'요청을 받는 경우,
 app.post('/event',(req,res)=>{
   let {title, end, start, desc, _id} = req.body
   Event.findOne({title: req.body.title},(err,obj)=>{
+    // Event.findOne({title: title},(err,obj)=>{
     console.log(obj)        //db에 똑같은거 2번 넣어서 null 아니게 해보셈
     if(obj === null){
     const event = new Event(req.body)
@@ -52,9 +53,8 @@ app.post('/event',(req,res)=>{
     }) //--성공 
     } else {
       Event.findOneAndUpdate(
-        {_id : _id }, // 검색조건
+        {_id : _id }, // 검색조건 
         {title: title, start: start, end: end, desc: desc}, 
-        { upsert : true }, //
         (err, eventInfo)=>{
         if(err) return res.json({success: false, err})
         return res.status(200).send({
@@ -87,6 +87,7 @@ app.post("/event", (req, res) => { //err,obj 잘 모르겠다
     }
   );
 });
+
 
 
 app.listen(port, ()=>{  // port변수를 이용하여 3000번 포트에 node.js 서버를 연결합니다.
