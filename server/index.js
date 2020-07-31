@@ -66,7 +66,14 @@ app.post('/event',(req,res)=>{
 })
 */
 
-//clinet에서 _id 안 받아와도 상관없음
+//db에서 숑 꺼내서 클라이언트!
+app.post("/getEvent", (req, res)=>{
+  //db에 접속해서 올바른 데이터를 받아와서 다시 res.send 해준다
+  // req.body._id (받아온 데이터)
+  
+})
+
+//클라이언트에서 받아서 db로 넣는거
 app.post("/event", (req, res) => { //err,obj 잘 모르겠다
   let { title, end, start, desc, _id } = req.body;
   let query = { title, end, start, desc, _id }; //_id만 있어도 됨 일단 가지고 있자
