@@ -39,7 +39,8 @@ app.get('/', (req, res)=>{ // '/' 위치에 'get'요청을 받는 경우,
 //??? 데이터가 없으면 저장하고 있으면 수정한다.
 //--------------------------------------------------
 /*
-app.post('/eventc',(req,res)=>{
+
+app.post('/event',(req,res)=>{
   let {title, end, start, desc, _id} = req.body
   Event.findOne({title: req.body.title},(err,obj)=>{
     console.log(obj)        //db에 똑같은거 2번 넣어서 null 아니게 해보셈
@@ -66,17 +67,14 @@ app.post('/eventc',(req,res)=>{
 */
 
 
-app.post("/eventc", (req, res) => { //err,obj 잘 모르겠다
+app.post("/event", (req, res) => { //err,obj 잘 모르겠다
   let { title, end, start, desc, _id } = req.body;
-  let query = { title, end, start, desc, _id };
-
-  console.log(query._id);
-
+  let query = { title, end, start, desc, _id }; //_id만 있어도 됨 일단 가지고 있자
+  console.log(query._id);  //아이디가 없으면 undefined가 뜬다.
   if (query._id === undefined) {
-    query._id = new mongoose.Types.ObjectId();
+    query._id = new mongoose.Types.ObjectId();  //undefined이면 오브젝트 아이디를 만드러줌
   } // _id가 없으면 만들어준다
   console.log("modified : " + query._id);
-
   Event.findOneAndUpdate(
     { _id: query._id }, // 검색조건
     { title: title, start: start, end: end, desc: desc}, //바꾸는 값들
@@ -89,6 +87,7 @@ app.post("/eventc", (req, res) => { //err,obj 잘 모르겠다
     }
   );
 });
+
 
 app.listen(port, ()=>{  // port변수를 이용하여 3000번 포트에 node.js 서버를 연결합니다.
   console.log(`server on! http://localhost:${port}`); //서버가 실행되면 콘솔창에 표시될 메세지입니다.
