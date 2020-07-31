@@ -66,7 +66,7 @@ app.post('/event',(req,res)=>{
 })
 */
 
-
+//clinet에서 _id 안 받아와도 상관없음
 app.post("/event", (req, res) => { //err,obj 잘 모르겠다
   let { title, end, start, desc, _id } = req.body;
   let query = { title, end, start, desc, _id }; //_id만 있어도 됨 일단 가지고 있자
