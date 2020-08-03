@@ -32,49 +32,39 @@ mongoose.connect('mongodb+srv://JWTEX:TIGER@jwt-rkkz2.mongodb.net/<dbname>?retry
 
 
 
-app.get('/', (req, res)=>{ // '/' 위치에 'get'요청을 받는 경우,
+app.get('/api', (req, res)=>{ // '/' 위치에 'get'요청을 받는 경우,
   res.send('Hello World!'); // "Hello World!"를 보냅니다.
   });
   
-//??? 데이터가 없으면 저장하고 있으면 수정한다.
-//--------------------------------------------------
-/*
-
-app.post('/event',(req,res)=>{
-  let {title, end, start, desc, _id} = req.body
-  Event.findOne({title: req.body.title},(err,obj)=>{
-    // Event.findOne({title: title},(err,obj)=>{
-    console.log(obj)        //db에 똑같은거 2번 넣어서 null 아니게 해보셈
-    if(obj === null){
-    const event = new Event(req.body)
-    event.save((err, calendarInfo)=>{
-      if(err) return res.json({ success: false, err})
-      return res.status(200).json({success: true})
-    }) //--성공 
-    } else {
-      Event.findOneAndUpdate(
-        {_id : _id }, // 검색조건 
-        {title: title, start: start, end: end, desc: desc}, 
-        (err, eventInfo)=>{
-        if(err) return res.json({success: false, err})
-        return res.status(200).send({
-          success:true
-        })
-      })
-    }
-  })
-})
-*/
 
 //db에서 숑 꺼내서 클라이언트!
-app.post("/getEvent", (req, res)=>{
-  //db에 접속해서 올바른 데이터를 받아와서 다시 res.send 해준다
-  // req.body._id (받아온 데이터)
-  
-})
+// app.post("/api/getEvent", (req, res)=>{
+//   Event.findOne({_id: req.body._id, title: req.body.title, start: req.body.start, end: req.body.end, desc: req.body.desc},(err, dbevnet)=>{
+//     if(err) return res.json({success: false, err})
+//     return res.status(200).send({
+//       success: true,
+//     })
+//   })
+// })
+
+//{}로 다 긁어온다.
+app.post("/api/getEvent", (req, res)=>{
+    Event.find({},(err, db)=>{
+      if(err) return res.json({success: false, err})
+      return res.status(200).json({
+        success : true,
+        event: db //event라는 이름으로 db 내용을 가져온다.
+      })
+    })
+  })
+
+
+
+
+
 
 //클라이언트에서 받아서 db로 넣는거
-app.post("/event", (req, res) => { //err,obj 잘 모르겠다
+app.post("/api/event", (req, res) => { //err,obj 잘 모르겠다
   let { title, end, start, desc, _id } = req.body;
   let query = { title, end, start, desc, _id }; //_id만 있어도 됨 일단 가지고 있자
   console.log(query._id);  //아이디가 없으면 undefined가 뜬다.
