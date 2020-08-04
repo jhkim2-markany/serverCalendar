@@ -37,15 +37,8 @@ app.get('/api', (req, res)=>{ // '/' 위치에 'get'요청을 받는 경우,
   });
   
 
-//db에서 숑 꺼내서 클라이언트!
-// app.post("/api/getEvent", (req, res)=>{
-//   Event.findOne({_id: req.body._id, title: req.body.title, start: req.body.start, end: req.body.end, desc: req.body.desc},(err, dbevnet)=>{
-//     if(err) return res.json({success: false, err})
-//     return res.status(200).send({
-//       success: true,
-//     })
-//   })
-// })
+
+
 
 //{}로 다 긁어온다.
 app.post("/api/getEvent", (req, res)=>{
@@ -57,10 +50,6 @@ app.post("/api/getEvent", (req, res)=>{
       })
     })
   })
-
-
-
-
 
 
 //클라이언트에서 받아서 db로 넣는거
@@ -78,7 +67,7 @@ app.post("/api/event", (req, res) => { //err,obj 잘 모르겠다
     { upsert: true }, // 데이터가 없으면 새로만든다
     (err, eventInfo) => {
       if (err) return res.json({ success: false, err });
-      return res.status(200).send({
+      return res.status(200).json({
         success: true,
       });
     }
